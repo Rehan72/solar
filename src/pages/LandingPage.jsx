@@ -50,8 +50,7 @@ const LandingPage = ({ onNavigate }) => {
     ]
   );
 
-  const smoothSunScale = useSpring(sunScale, { stiffness: 40, damping: 40 });
-  const smoothSunY = useSpring(sunY, { stiffness: 40, damping: 40 });
+
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [comparisonMode, setComparisonMode] = React.useState("solar"); // "grid" or "solar"
@@ -143,7 +142,7 @@ const LandingPage = ({ onNavigate }) => {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center px-6 md:px-24 overflow-hidden z-10">
         <motion.div 
-          style={{ y: smoothSunY, scale: sunScale, opacity: sunOpacity }}
+          style={{ y: sunY, scale: sunScale, opacity: sunOpacity }}
           className="absolute top-10 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] aspect-square pointer-events-none"
         >
           {/* Ultra-Realistic Sun System */}
@@ -184,7 +183,7 @@ const LandingPage = ({ onNavigate }) => {
               
               <motion.img 
                 animate={{ rotate: 360 }}
-                transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
                 src="/assets/sun_v2.png" 
                 alt="Sun" 
                 className="w-full h-full object-cover scale-125"
