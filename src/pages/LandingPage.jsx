@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
@@ -28,7 +29,8 @@ import { Button } from "../components/ui/button";
 import SolarCalculator from "../components/sections/SolarCalculator";
 import RealisticSun from "../components/ui/RealisticSun";
 
-const LandingPage = ({ onNavigate }) => {
+const LandingPage = () => {
+  const navigate = useNavigate();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -111,7 +113,7 @@ const LandingPage = ({ onNavigate }) => {
       <nav className="fixed top-0 left-0 w-full z-50 glass border-b-0 py-4 px-6 md:px-24 flex justify-between items-center transition-all">
         <div className="flex items-center gap-2">
           <RealisticSun className="w-10 h-10" />
-          <span className="text-2xl font-black tracking-tighter cursor-pointer" onClick={() => onNavigate('landing')}>SOLAR<span className="text-solar-yellow italic">MAX</span></span>
+          <span className="text-2xl font-black tracking-tighter cursor-pointer" onClick={() => navigate('/')}>SOLAR<span className="text-solar-yellow italic">MAX</span></span>
         </div>
         <div className="hidden md:flex items-center gap-8">
           {["Features", "Process", "Calculator", "Use Cases"].map((item) => (
@@ -119,13 +121,13 @@ const LandingPage = ({ onNavigate }) => {
           ))}
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
             <button 
-              onClick={() => onNavigate('login')}
+              onClick={() => navigate('/login')}
               className="text-sm font-black tracking-widest uppercase hover:text-solar-yellow transition-colors cursor-pointer"
             >
               Login
             </button>
             <Button 
-              onClick={() => onNavigate('register')}
+              onClick={() => navigate('/register')}
               className="bg-solar-yellow text-deep-navy font-black rounded-full px-8 hover:scale-105 transition-transform cursor-pointer"
             >
               Sign Up

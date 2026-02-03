@@ -4,9 +4,10 @@ import AuthLayout from '../layouts/AuthLayout';
 import { Mail, ArrowRight, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import Toaster from "../components/ui/Toaster";
+import { useNavigate } from 'react-router-dom';
 
-const ForgotPassword = ({ onNavigate }) => {
-
+const ForgotPassword = () => {
+    const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState({});
   const [toasts, setToasts] = useState([]);
@@ -37,7 +38,7 @@ const ForgotPassword = ({ onNavigate }) => {
       addToast("RESET LINK SENT SUCCESSFULLY", "success");
       // Simulate API call and redirect
       setTimeout(() => {
-         onNavigate('login');
+         navigate('/login');
       }, 2000);
     } else {
       addToast("PLEASE FIX FORM ERRORS", "error");
@@ -102,7 +103,7 @@ const ForgotPassword = ({ onNavigate }) => {
 
           <div className="mt-10 pt-10 border-t border-white/10 text-center">
             <button 
-              onClick={() => onNavigate('login')}
+              onClick={() => navigate('/login')}
               className="flex items-center justify-center gap-2 mx-auto text-blue-100/40 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase group"
             >
               <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Back to Login

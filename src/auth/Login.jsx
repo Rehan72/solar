@@ -4,9 +4,10 @@ import AuthLayout from '../layouts/AuthLayout';
 import { Sun, Mail, Lock, ArrowRight, Github, AlertCircle } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import Toaster from "../components/ui/Toaster";
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ onNavigate }) => {
-
+const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [toasts, setToasts] = useState([]);
@@ -38,6 +39,7 @@ const Login = ({ onNavigate }) => {
     e.preventDefault();
     if (validate()) {
       addToast("AUTHENTICATION SUCCESSFUL", "success");
+      navigate("/dashboard");
       // Proceed with login logic
     } else {
       addToast("PLEASE FIX FORM ERRORS", "error");
@@ -125,7 +127,7 @@ const Login = ({ onNavigate }) => {
                 </div>
                 <span className="text-blue-100/40 group-hover:text-white transition-colors">Remember Me</span>
               </label>
-              <button type="button" onClick={() => onNavigate('forgot-password')} className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4 cursor-pointer">Forgot Password?</button>
+              <button type="button" onClick={() => navigate('/forgot-password')} className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4 cursor-pointer">Forgot Password?</button>
             </div>
 
             <Button className="w-full bg-solar-yellow text-deep-navy font-black py-7 rounded-2xl text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,215,0,0.2)] group overflow-hidden relative cursor-pointer">
@@ -158,7 +160,7 @@ const Login = ({ onNavigate }) => {
           <p className="mt-10 text-center text-xs font-bold tracking-widest uppercase text-blue-100/40">
             DON'T HAVE AN ACCOUNT?{' '}
             <button 
-              onClick={() => onNavigate('register')}
+              onClick={() => navigate('/register')}
               className="text-solar-yellow hover:text-solar-gold transition-colors font-black"
             >
               INITIALIZE SIGNUP
@@ -168,7 +170,7 @@ const Login = ({ onNavigate }) => {
 
         {/* Back to Home */}
         <motion.button 
-          onClick={() => onNavigate('landing')}
+          onClick={() => navigate('/')}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}

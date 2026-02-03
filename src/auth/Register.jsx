@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 import { Sun, Mail, Lock, User, ArrowRight, ShieldCheck, Phone, AlertCircle } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import Toaster from "../components/ui/Toaster";
+import { useNavigate } from 'react-router-dom';
 
-const Register = ({ onNavigate }) => {
-
+const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ 
     fullName: '', 
     email: '', 
@@ -220,7 +221,7 @@ const Register = ({ onNavigate }) => {
           <p className="mt-10 text-center text-xs font-bold tracking-widest uppercase text-blue-100/40">
             ALREADY SECURED?{' '}
             <button 
-              onClick={() => onNavigate('login')}
+              onClick={() => navigate('/login')}
               className="text-solar-yellow hover:text-solar-gold transition-colors font-black"
             >
               NAVIGATE TO LOGIN
@@ -230,7 +231,7 @@ const Register = ({ onNavigate }) => {
 
         {/* Home Link */}
         <motion.button 
-          onClick={() => onNavigate('landing')}
+          onClick={() => navigate('/')}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
