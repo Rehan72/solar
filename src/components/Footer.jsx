@@ -1,9 +1,41 @@
-import React from 'react'
+import React from 'react';
+import { Globe, Heart, ShieldCheck, Activity } from 'lucide-react';
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div>Footer</div>
-  )
+    <div className="flex flex-col md:flex-row items-center justify-between gap-6 opacity-60">
+      {/* Left side: Version and Privacy */}
+      <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-[9px] font-black tracking-[0.2em] uppercase text-white/40">
+        <span>© {currentYear} SOLARMAX OS</span>
+        <div className="w-1 h-1 rounded-full bg-white/10" />
+        <a href="#" className="hover:text-solar-yellow transition-colors">Privacy Protocol</a>
+        <div className="w-1 h-1 rounded-full bg-white/10" />
+        <a href="#" className="hover:text-solar-yellow transition-colors">Security Audit</a>
+      </div>
+
+      {/* Center: System Status Indicators */}
+      <div className="flex items-center gap-8 text-[9px] font-black tracking-[0.3em] uppercase text-white/20">
+        <div className="flex items-center gap-2">
+          <Activity className="w-3 h-3 text-solar-yellow/40" />
+          <span>Sync: Active</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-3 h-3 text-green-500/40" />
+          <span>Encrypted</span>
+        </div>
+      </div>
+
+      {/* Right side: Made with info */}
+      <div className="flex items-center gap-2 text-[9px] font-bold tracking-widest uppercase text-white/30">
+        <span>Architected with</span>
+        <Heart className="w-3 h-3 text-solar-yellow animate-pulse" fill="currentColor" />
+        <span>for a greener Bharat</span>
+        <Globe className="ml-2 w-3.5 h-3.5 text-white/40" />
+      </div>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;
