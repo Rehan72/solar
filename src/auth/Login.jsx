@@ -153,13 +153,13 @@ const Login = ({ onNavigate }) => {
           <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none" />
           
           <div className="text-center mb-10">
-            <motion.div 
+            {/* <motion.div 
               whileHover={{ rotate: 180 }}
               transition={{ duration: 0.8 }}
               className="inline-flex items-center justify-center p-4 rounded-2xl bg-solar-yellow/5 border border-solar-yellow/20 mb-6"
             >
               <Sun className="w-8 h-8 text-solar-yellow" />
-            </motion.div>
+            </motion.div> */}
             <h2 className="text-4xl font-black tracking-tighter uppercase mb-2">Welcome <span className="text-solar-yellow">Back</span></h2>
             <p className="text-blue-100/40 text-sm font-light uppercase tracking-widest">Access your solar portal</p>
           </div>

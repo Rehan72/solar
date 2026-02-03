@@ -7,8 +7,7 @@ import Toaster from "../components/ui/Toaster";
 const Register = ({ onNavigate }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [formData, setFormData] = useState({ 
-    firstName: '', 
-    lastName: '', 
+    fullName: '', 
     email: '', 
     phone: '',
     password: '', 
@@ -38,8 +37,7 @@ const Register = ({ onNavigate }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = "REQUIRED";
-    if (!formData.lastName) newErrors.lastName = "REQUIRED";
+    if (!formData.fullName) newErrors.fullName = "FULL NAME REQUIRED";
     if (!formData.email) newErrors.email = "EMAIL IS REQUIRED";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "INVALID EMAIL";
     
@@ -54,8 +52,7 @@ const Register = ({ onNavigate }) => {
     }
 
     if (!formData.agreeToTerms) {
-      addToast("PLEASE AGREE TO TERMS", "error");
-      return false;
+      newErrors.agreeToTerms = "REQUIRED";
     }
 
     setErrors(newErrors);
@@ -174,7 +171,7 @@ const Register = ({ onNavigate }) => {
           <div className="absolute inset-0 bg-linear-to-br from-solar-yellow/5 via-transparent to-transparent opacity-50 pointer-events-none" />
           
           <div className="text-center mb-10">
-            <motion.div 
+            {/* <motion.div 
               animate={{ 
                 scale: [1, 1.1, 1],
                 filter: ["drop-shadow(0 0 0px rgba(255,215,0,0))", "drop-shadow(0 0 15px rgba(255,215,0,0.4))", "drop-shadow(0 0 0px rgba(255,215,0,0))"]
@@ -183,47 +180,28 @@ const Register = ({ onNavigate }) => {
               className="inline-flex items-center justify-center p-4 rounded-2xl bg-solar-yellow/5 border border-solar-yellow/20 mb-6"
             >
               <Sun className="w-8 h-8 text-solar-yellow" />
-            </motion.div>
+            </motion.div> */}
             <h2 className="text-4xl font-black tracking-tighter uppercase mb-2">Initialize <span className="text-solar-yellow">Access</span></h2>
             <p className="text-blue-100/40 text-sm font-light uppercase tracking-widest">Join the solar revolution</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <div className="relative">
-                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${errors.firstName ? 'text-red-500' : 'text-solar-yellow/50'}`} />
-                  <input 
-                    type="text" 
-                    placeholder="FIRST NAME"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className={`w-full bg-white/5 border rounded-2xl py-4 pl-12 pr-4 text-xs font-bold tracking-widest uppercase focus:outline-none focus:bg-white/10 transition-all placeholder:text-white/20 ${errors.firstName ? 'border-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.1)]' : 'border-white/10 focus:border-solar-yellow/50'}`}
-                  />
-                </div>
-                {errors.firstName && (
-                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="px-4 text-[10px] font-black tracking-widest text-red-500 uppercase flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.firstName}
-                  </motion.div>
-                )}
+            <div className="space-y-2">
+              <div className="relative">
+                <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${errors.fullName ? 'text-red-500' : 'text-solar-yellow/50'}`} />
+                <input 
+                  type="text" 
+                  placeholder="FULL NAME"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  className={`w-full bg-white/5 border rounded-2xl py-4 pl-12 pr-4 text-xs font-bold tracking-widest uppercase focus:outline-none focus:bg-white/10 transition-all placeholder:text-white/20 ${errors.fullName ? 'border-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.1)]' : 'border-white/10 focus:border-solar-yellow/50'}`}
+                />
               </div>
-              <div className="space-y-2">
-                <div className="relative">
-                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${errors.lastName ? 'text-red-500' : 'text-solar-yellow/50'}`} />
-                  <input 
-                    type="text" 
-                    placeholder="LAST NAME"
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className={`w-full bg-white/5 border rounded-2xl py-4 pl-12 pr-4 text-xs font-bold tracking-widest uppercase focus:outline-none focus:bg-white/10 transition-all placeholder:text-white/20 ${errors.lastName ? 'border-red-500/50 focus:border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.1)]' : 'border-white/10 focus:border-solar-yellow/50'}`}
-                  />
-                </div>
-                {errors.lastName && (
-                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="px-4 text-[10px] font-black tracking-widest text-red-500 uppercase flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.lastName}
-                  </motion.div>
-                )}
-              </div>
+              {errors.fullName && (
+                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="px-4 text-[10px] font-black tracking-widest text-red-500 uppercase flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" /> {errors.fullName}
+                </motion.div>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -299,7 +277,13 @@ const Register = ({ onNavigate }) => {
               </div>
             </div>
 
-            <div className={`p-4 rounded-2xl transition-all ${formData.agreeToTerms ? 'bg-solar-yellow/10 border-solar-yellow/20' : 'bg-white/5 border-white/10'} border`}>
+            <div className={`p-4 rounded-2xl transition-all ${
+              errors.agreeToTerms 
+                ? 'bg-red-500/10 border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.1)]' 
+                : formData.agreeToTerms 
+                  ? 'bg-solar-yellow/10 border-solar-yellow/20' 
+                  : 'bg-white/5 border-white/10'
+            } border`}>
               <label 
                 className="flex items-start gap-4 cursor-pointer group"
                 onClick={(e) => {

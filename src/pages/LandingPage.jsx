@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import SolarCalculator from "../components/sections/SolarCalculator";
+import RealisticSun from "../components/ui/RealisticSun";
 
 const LandingPage = ({ onNavigate }) => {
   const containerRef = useRef(null);
@@ -110,7 +111,7 @@ const LandingPage = ({ onNavigate }) => {
       {/* Sticky Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 glass border-b-0 py-4 px-6 md:px-24 flex justify-between items-center transition-all">
         <div className="flex items-center gap-2">
-          <Sun className="text-solar-yellow w-8 h-8" />
+          <RealisticSun className="w-10 h-10" />
           <span className="text-2xl font-black tracking-tighter cursor-pointer" onClick={() => onNavigate('landing')}>SOLAR<span className="text-solar-yellow italic">MAX</span></span>
         </div>
         <div className="hidden md:flex items-center gap-8">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun } from "lucide-react";
+import RealisticSun from "./RealisticSun";
 
 const Preloader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
@@ -29,18 +29,8 @@ const Preloader = ({ onComplete }) => {
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-radial-gradient from-solar-yellow/5 to-transparent blur-[100px]" />
       
       <div className="relative flex flex-col items-center">
-        {/* Pulsing Flare Icon */}
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5]
-          }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="relative mb-12"
-        >
-          <div className="absolute inset-0 bg-solar-yellow/20 blur-3xl rounded-full" />
-          <Sun className="w-24 h-24 text-solar-yellow relative z-10" />
-        </motion.div>
+        {/* Ultra-Realistic Sun System */}
+        <RealisticSun className="w-48 h-48 mb-12" />
 
         {/* Logo Animation */}
         <motion.div 

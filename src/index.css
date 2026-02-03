@@ -200,7 +200,7 @@ body {
   inset: -100%;
   z-index: 100;
   pointer-events: none;
-  background-image: url("https://grains.marcbruederlin.com/noise.png");
+  background-image: url("/noise.png");
   opacity: 0.05;
   animation: noise 0.5s steps(3) infinite;
 }
