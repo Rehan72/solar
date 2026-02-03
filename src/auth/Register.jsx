@@ -72,7 +72,7 @@ const Register = ({ onNavigate }) => {
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-lg px-6 my-12"
       >
-        <div className="glass-dark p-8 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl backdrop-blur-3xl relative overflow-hidden group">
+        <div className="glass-dark p-8 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl backdrop-blur-3xl relative overflow-hidden group/card">
           <div className="absolute inset-0 bg-linear-to-br from-solar-yellow/5 via-transparent to-transparent opacity-50 pointer-events-none" />
           
           <div className="text-center mb-10">

@@ -120,13 +120,13 @@ const LandingPage = ({ onNavigate }) => {
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
             <button 
               onClick={() => onNavigate('login')}
-              className="text-sm font-black tracking-widest uppercase hover:text-solar-yellow transition-colors"
+              className="text-sm font-black tracking-widest uppercase hover:text-solar-yellow transition-colors cursor-pointer"
             >
               Login
             </button>
             <Button 
               onClick={() => onNavigate('register')}
-              className="bg-solar-yellow text-deep-navy font-black rounded-full px-8 hover:scale-105 transition-transform"
+              className="bg-solar-yellow text-deep-navy font-black rounded-full px-8 hover:scale-105 transition-transform cursor-pointer"
             >
               Sign Up
             </Button>

@@ -34,7 +34,7 @@ const Login = ({ onNavigate }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
       addToast("AUTHENTICATION SUCCESSFUL", "success");
@@ -54,9 +54,9 @@ const Login = ({ onNavigate }) => {
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-md px-6"
       >
-        <div className="glass-dark p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-2xl backdrop-blur-3xl relative overflow-hidden group">
+        <div className="glass-dark p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-2xl backdrop-blur-3xl relative overflow-hidden group/card">
           {/* Shimmer Effect */}
-          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:animate-shimmer pointer-events-none" />
           
           <div className="text-center mb-10">
             {/* <motion.div 
@@ -125,10 +125,10 @@ const Login = ({ onNavigate }) => {
                 </div>
                 <span className="text-blue-100/40 group-hover:text-white transition-colors">Remember Me</span>
               </label>
-              <button className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4">Forgot Password?</button>
+              <button type="button" onClick={() => onNavigate('forgot-password')} className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4 cursor-pointer">Forgot Password?</button>
             </div>
 
-            <Button className="w-full bg-solar-yellow text-deep-navy font-black py-7 rounded-2xl text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,215,0,0.2)] group overflow-hidden relative">
+            <Button className="w-full bg-solar-yellow text-deep-navy font-black py-7 rounded-2xl text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,215,0,0.2)] group overflow-hidden relative cursor-pointer">
               <span className="relative z-10 flex items-center justify-center gap-2">
                 AUTHENTICATE <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
