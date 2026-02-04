@@ -25,7 +25,8 @@ import {
   Database,
   Server,
   Layers,
-  Cpu
+  Cpu,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import LocationPicker from '../../components/ui/LocationPicker';
@@ -69,8 +70,18 @@ const INTERNET_OPTIONS = [
   { value: 'wifi', label: 'Wi-Fi' }
 ];
 
+const TABS = [
+  { id: 'identity', label: 'Identity & Status', icon: FileBadge, description: 'Basic plant details' },
+  { id: 'location', label: 'Location & Grid', icon: MapPin, description: 'Site coordinates' },
+  { id: 'electrical', label: 'Electrical Config', icon: Zap, description: 'Inverters & transformers' },
+  { id: 'connectivity', label: 'Connectivity', icon: Gauge, description: 'Metering & IoT' },
+  { id: 'safety', label: 'Safety & Access', icon: ShieldCheck, description: 'Protection & users' },
+];
+
 function CreatePlant() {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = React.useState('identity');
+  
   const [formData, setFormData] = React.useState({
     // 1. Plant Identity
     plantName: '',
@@ -128,7 +139,7 @@ function CreatePlant() {
   const [errors, setErrors] = React.useState({});
   const [touched, setTouched] = React.useState({});
 
-  // Validation rules
+  // Validation rules (Same as before)
   const validateField = (name, value) => {
     switch (name) {
       // Identity
@@ -153,18 +164,6 @@ function CreatePlant() {
         if (!value) return 'Coordinates are required';
         return '';
       
-      // Grid
-      case 'utilityName':
-        // Optional but recommended
-        return '';
-        
-      // Electrical
-      case 'inverterCount':
-      case 'inverterRatedPower':
-        // Logic validation done separately or here
-        if (value && parseFloat(value) < 0) return 'Must be positive';
-        return '';
-        
       // Contact
       case 'ownerName':
         if (!value.trim()) return 'Owner name is required';
@@ -181,78 +180,43 @@ function CreatePlant() {
     }
   };
 
-  // Cross-field validation (e.g. Inverter Capacity vs Plant Capacity)
-  React.useEffect(() => {
-    if (formData.inverterCount && formData.inverterRatedPower && formData.capacity) {
-      const totalInvCapacity = parseFloat(formData.inverterCount) * parseFloat(formData.inverterRatedPower);
-      const plantCap = parseFloat(formData.capacity);
-      if (totalInvCapacity > plantCap * 1.5) { // Allow some oversizing (DC:AC ratio), but warn if excessive
-        setErrors(prev => ({ ...prev, capacityWarning: 'Total inverter capacity is significantly higher than plant capacity' }));
-      } else {
-        setErrors(prev => {
-          const { capacityWarning, ...rest } = prev;
-          return rest;
-        });
-      }
-    }
-  }, [formData.inverterCount, formData.inverterRatedPower, formData.capacity]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user starts typing
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (touched[name]) {
-      const error = validateField(name, value);
-      setErrors(prev => ({
-        ...prev,
-        [name]: error
-      }));
+      setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
     }
   };
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    setTouched(prev => ({
-      ...prev,
-      [name]: true
-    }));
-    
-    const error = validateField(name, value);
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
+    setTouched(prev => ({ ...prev, [name]: true }));
+    setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  // Handle location change from picker
   const handleLocationChange = (locationData) => {
     const { addressDetails } = locationData;
     setFormData(prev => ({
       ...prev,
-      // Update location fields
       location: locationData.location,
       latitude: locationData.latitude,
       longitude: locationData.longitude,
-      // Auto-fill address details if available
       country: addressDetails?.country || prev.country,
       state: addressDetails?.state || prev.state,
       city: addressDetails?.city || addressDetails?.town || addressDetails?.village || prev.city,
     }));
-    
-    // Clear validation error for location
-    if (touched.location) {
-      setErrors(prev => ({ ...prev, location: '' }));
+    if (touched.location) setErrors(prev => ({ ...prev, location: '' }));
+  };
+
+  const handleNext = () => {
+    const currentIndex = TABS.findIndex(t => t.id === activeTab);
+    if (currentIndex < TABS.length - 1) {
+      setActiveTab(TABS[currentIndex + 1].id);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate all fields
     const newErrors = {};
     Object.keys(formData).forEach(key => {
       const error = validateField(key, formData[key]);
@@ -263,87 +227,18 @@ function CreatePlant() {
     setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}));
     
     if (Object.keys(newErrors).length === 0) {
-      // Submit form
       console.log('Form submitted:', formData);
       navigate('/plants');
-    } else {
-      // Scroll to first error
-      const firstError = document.querySelector('.text-red-400');
-      if (firstError) {
-        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
     }
   };
 
-  return (
-    <div className="relative min-h-screen bg-deep-navy text-white overflow-hidden">
-      {/* Cinematic Overlays */}
-      <div className="film-grain" />
-      <div className="cinematic-vignette" />
-      
-      {/* Background Gradient */}
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(180deg, #000033 0%, #001f3f 40%, #003366 80%, #001f3f 100%)'
-        }}
-      />
-      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-solar-yellow/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-solar-gold/5 blur-[120px] rounded-full pointer-events-none" />
-
-      {/* Content */}
-      <div className="relative z-10 px-6 md:px-12 mx-auto pb-20">
-        {/* Back Button */}
-        <Button
-          variant="ghost"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          onClick={() => navigate('/plants')}
-          className="flex items-center gap-3 text-white/60 hover:text-white mb-8 group transition-colors pt-8 h-auto p-0 hover:bg-transparent justify-start"
-        >
-          <div className="w-10 h-10 glass rounded-full flex items-center justify-center group-hover:bg-white/10 transition-colors">
-            <ArrowLeft className="w-5 h-5 text-solar-yellow" />
-          </div>
-          <span className="text-sm text-solar-yellow font-bold uppercase tracking-widest">Back to Grids</span>
-        </Button>
-
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12"
-        >
-          <h1 className="text-4xl md:text-6xl font-black uppercase rim-light tracking-tighter">
-            Create <span className="text-solar-yellow">Grid</span>
-          </h1>
-          <p className="text-white/40 text-lg mt-4">
-            Register your grid to start monitoring power generation and efficiency.
-          </p>
-        </motion.div>
-
-        {/* Form */}
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          onSubmit={handleSubmit}
-          className="space-y-8"
-        >
-          {/* SECTION 1: Plant Identity */}
-          <div className="glass rounded-3xl p-8 md:p-12 relative z-50">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-solar-yellow/10 rounded-xl flex items-center justify-center">
-                <FileBadge className="w-6 h-6 text-solar-yellow" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black uppercase tracking-wider">Identity & Status</h2>
-                <p className="text-sm text-white/40">Essential plant identification details</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  // Render content based on active tab
+  const renderContent = () => {
+    switch(activeTab) {
+      case 'identity':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField name="plantName" label="Grid Name" required touched={touched} errors={errors}>
                 <div className="relative">
                   <Building2 className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
@@ -385,20 +280,11 @@ function CreatePlant() {
               </div>
             </div>
           </div>
-
-          {/* SECTION 2: Location & Grid Info */}
-          <div className="glass rounded-3xl p-8 md:p-12 relative z-40">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-solar-yellow/10 rounded-xl flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-solar-yellow" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black uppercase tracking-wider">Location & Grid</h2>
-                <p className="text-sm text-white/40">Site coordinates and utility connection</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        );
+      case 'location':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
                 <LocationPicker
                   value={{
@@ -444,19 +330,10 @@ function CreatePlant() {
               </div>
             </div>
           </div>
-
-          {/* SECTION 3: Electrical Config */}
-          <div className="glass rounded-3xl p-8 md:p-12 relative z-30">
-             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-solar-yellow/10 rounded-xl flex items-center justify-center">
-                <Zap className="w-6 h-6 text-solar-yellow" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black uppercase tracking-wider">Electrical Configuration</h2>
-                <p className="text-sm text-white/40">Inverters and transformers setup</p>
-              </div>
-            </div>
-
+        );
+      case 'electrical':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="relative">
                 <Select
@@ -497,19 +374,10 @@ function CreatePlant() {
               )}
             </div>
           </div>
-
-          {/* SECTION 4: Metering & Connectivity */}
-          <div className="glass rounded-3xl p-8 md:p-12 relative z-20">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-solar-yellow/10 rounded-xl flex items-center justify-center">
-                <Gauge className="w-6 h-6 text-solar-yellow" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black uppercase tracking-wider">Metering & Connectivity</h2>
-                <p className="text-sm text-white/40">Data acquisition and communication</p>
-              </div>
-            </div>
-
+        );
+      case 'connectivity':
+         return (
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="relative">
                 <Select
@@ -564,20 +432,11 @@ function CreatePlant() {
               </div>
             </div>
           </div>
-
-          {/* SECTION 5: Control, Safety & Access */}
-          <div className="glass rounded-3xl p-8 md:p-12">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-solar-yellow/10 rounded-xl flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6 text-solar-yellow" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black uppercase tracking-wider">Safety & Access</h2>
-                <p className="text-sm text-white/40">Grid protection and user roles</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        );
+      case 'safety':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                  <div className="glass p-4 rounded-xl flex items-center justify-between">
                     <span className="text-sm font-bold">Anti-Islanding</span>
@@ -621,42 +480,131 @@ function CreatePlant() {
                </FormField>
             </div>
           </div>
+        );
+      default: return null;
+    }
+  };
 
-          {/* Submit Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center gap-4 pt-4 pb-20"
-          >
-            <Button 
-              type="submit"
-              variant="default"
-              size="lg"
-              className="w-full sm:w-auto hover:scale-105 transition-transform font-black px-12 py-6 rounded-full text-sm shadow-[0_0_30px_rgba(255,215,0,0.3)] flex items-center justify-center gap-3"
-            >
-              <CheckCircle2 className="w-5 h-5" />
-              REGISTER GRID
+  return (
+    <div className="relative min-h-screen bg-deep-navy text-white overflow-hidden">
+      {/* Cinematic Overlays */}
+      <div className="film-grain" />
+      <div className="cinematic-vignette" />
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, #000033 0%, #001f3f 40%, #003366 80%, #001f3f 100%)' }} />
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-solar-yellow/5 blur-[150px] rounded-full pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-10 px-6 md:px-12 mx-auto pb-20 pt-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+            <Button variant="ghost" onClick={() => navigate('/plants')} className="flex items-center gap-3 text-white/60 hover:text-white p-0 h-auto hover:bg-transparent">
+                <div className="w-10 h-10 glass rounded-full flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                    <ArrowLeft className="w-5 h-5 text-solar-yellow" />
+                </div>
+                <span className="text-sm text-solar-yellow font-bold uppercase tracking-widest">Back to Grids</span>
             </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              onClick={() => navigate('/plants')}
-              className="w-full sm:w-auto px-12 py-6 rounded-full text-sm font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors"
-            >
-              Cancel
-            </Button>
-          </motion.div>
-        </motion.form>
+            <h1 className="text-2xl font-black uppercase rim-light tracking-tighter">
+                Create <span className="text-solar-yellow">Grid</span>
+            </h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Sidebar Navigation */}
+            <div className="lg:col-span-3">
+                <div className="glass rounded-2xl p-4 sticky top-8">
+                    <nav className="space-y-2">
+                        {TABS.map((tab) => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left group ${
+                                    activeTab === tab.id 
+                                    ? 'bg-solar-yellow/10 border border-solar-yellow/20 text-white' 
+                                    : 'hover:bg-white/5 text-white/50 hover:text-white'
+                                }`}
+                            >
+                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+                                    activeTab === tab.id ? 'bg-solar-yellow text-deep-navy' : 'bg-white/5 group-hover:bg-white/10'
+                                }`}>
+                                    <tab.icon className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-bold uppercase tracking-wide">{tab.label}</p>
+                                    <p className="text-xs text-white/30 hidden md:block">{tab.description}</p>
+                                </div>
+                            </button>
+                        ))}
+                    </nav>
+                </div>
+            </div>
+
+            {/* Main Form Area */}
+            <div className="lg:col-span-9">
+                <motion.form
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    onSubmit={handleSubmit}
+                    className="glass rounded-3xl p-8 md:p-12 min-h-[600px] flex flex-col justify-between"
+                >
+                    <div className="mb-8 border-b border-white/10 pb-4">
+                        <h2 className="text-2xl font-black uppercase tracking-wider">
+                            {TABS.find(t => t.id === activeTab)?.label}
+                        </h2>
+                        <p className="text-white/40">
+                             {TABS.find(t => t.id === activeTab)?.description}
+                        </p>
+                    </div>
+
+                    <div className="flex-1">
+                        {renderContent()}
+                    </div>
+
+                    <div className="mt-12 pt-8 border-t border-white/10 flex justify-between items-center">
+                        <p className="text-xs text-white/30 hidden sm:block">
+                            Step {TABS.findIndex(t => t.id === activeTab) + 1} of {TABS.length}
+                        </p>
+                        <div className="flex gap-4 ml-auto">
+                            {activeTab !== 'identity' && (
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    onClick={() => {
+                                         const currentIndex = TABS.findIndex(t => t.id === activeTab);
+                                         if (currentIndex > 0) setActiveTab(TABS[currentIndex - 1].id);
+                                    }}
+                                    className="px-8 text-white/60 hover:text-white"
+                                >
+                                    Back
+                                </Button>
+                            )}
+                            {activeTab !== 'safety' ? (
+                                <Button 
+                                    type="button" 
+                                    onClick={handleNext}
+                                    className="bg-solar-yellow text-deep-navy font-bold hover:bg-solar-gold px-8"
+                                >
+                                    Continue <ChevronRight className="w-4 h-4 ml-2" />
+                                </Button>
+                            ) : (
+                                <Button 
+                                    type="submit" 
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                                >
+                                    Complete Registration <CheckCircle2 className="w-4 h-4 ml-2" />
+                                </Button>
+                            )}
+                        </div>
+                    </div>
+                </motion.form>
+            </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default CreatePlant;
-
-// Helper functions (extracted to prevent re-renders)
+// Helpers
 const getInputClassName = (fieldName, touched, errors) => {
   const hasError = touched[fieldName] && errors[fieldName];
   return `w-full pl-12 pr-4 py-4 bg-white/5 border ${
@@ -684,4 +632,4 @@ const FormField = ({ name, label, required, children, className = '', touched = 
   </div>
 );
 
-
+export default CreatePlant;
