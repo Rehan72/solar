@@ -1,8 +1,8 @@
 import React from 'react';
-import { Search, Bell, Menu, User, Sun } from 'lucide-react';
+import { Search, Bell, Menu, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import RealisticSun from './ui/RealisticSun';
 
-import { Link } from 'react-router-dom';
 
 function Header({ sidebarOpen, setSidebarOpen }) {
   return (
@@ -16,17 +16,14 @@ function Header({ sidebarOpen, setSidebarOpen }) {
           <Menu className="w-5 h-5 text-solar-yellow" />
         </button>
 
-        <Link to="/" className="flex items-center gap-3 group">
-          <motion.div
-            whileHover={{ rotate: 180 }}
-            transition={{ duration: 0.7 }}
-          >
-            <Sun className="w-8 h-8 text-solar-yellow" />
-          </motion.div>
-          <span className="text-2xl font-black tracking-tighter uppercase whitespace-nowrap">
+        <div className="flex items-center group">
+          <div className="w-12 h-12 relative flex items-center justify-center overflow-hidden shrink-0">
+            <RealisticSun className="w-12 h-12" scale={0.5} rotate={true} />
+          </div>
+          <span className="text-2xl font-black tracking-tighter uppercase whitespace-nowrap -ml-1">
             SOLAR<span className="text-solar-yellow italic">MAX</span>
           </span>
-        </Link>
+        </div>
       </div>
 
       {/* Search Bar (Hidden on Mobile) */}

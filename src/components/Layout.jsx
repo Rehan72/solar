@@ -22,7 +22,7 @@ function Layout({ children }) {
       {/* 1. Global Background Gradient */}
       <div
         className="fixed inset-0 z-0 pointer-events-none"
-        style={{ background: "linear-gradient(180deg, #001f3f 0%, #003366 40%, #FF8C00 80%, #FFD700 100%)" }}
+        style={{ background: "linear-gradient(180deg, #000033 0%, #001f3f 40%, #003366 80%, #001f3f 100%)" }}
       />
 
       {/* 2. Cinematic Lens Overlays */}
@@ -63,12 +63,13 @@ function Layout({ children }) {
             </div>
           </main>
 
-          {/* Footer */}
+         
+        </div>
+      </div>
+       {/* Footer */}
           <footer className="relative z-10 px-6 py-8 md:px-10 border-t border-white/5 bg-black/20 backdrop-blur-xl mt-auto">
             <Footer />
           </footer>
-        </div>
-      </div>
     </div>
   );
 }
