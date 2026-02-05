@@ -120,12 +120,13 @@ const LandingPage = () => {
             <a key={item} href={`#${item.toLowerCase().replace(" ", "-")}`} className="text-sm font-bold hover:text-solar-yellow transition-colors">{item}</a>
           ))}
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-            <button 
+            <Button 
+              variant="ghost"
               onClick={() => navigate('/login')}
-              className="text-sm font-black tracking-widest uppercase hover:text-solar-yellow transition-colors cursor-pointer"
+              className="text-sm font-black tracking-widest uppercase hover:text-solar-yellow transition-colors cursor-pointer bg-transparent hover:bg-transparent"
             >
               Login
-            </button>
+            </Button>
             <Button 
               onClick={() => navigate('/register')}
               className="bg-solar-yellow text-deep-navy font-black rounded-full px-8 hover:scale-105 transition-transform cursor-pointer"
@@ -284,12 +285,12 @@ const LandingPage = () => {
             <Button size="lg" className="bg-solar-yellow text-deep-navy hover:scale-105 transition-transform font-black px-12 py-8 rounded-full text-lg shadow-[0_0_30px_rgba(255,215,0,0.3)]">
               EXPLORE ENERGY
             </Button>
-            <button className="flex items-center gap-4 font-bold group text-white hover:text-solar-yellow transition-colors">
+            <Button variant="ghost" className="flex items-center gap-4 font-bold group text-white hover:text-solar-yellow transition-colors bg-transparent hover:bg-transparent h-auto p-0">
               <span className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-deep-navy transition-all">
                 <ArrowRight className="w-6 h-6" />
               </span>
               VIEW PROCESS
-            </button>
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -422,15 +423,16 @@ const LandingPage = () => {
             {/* Toggle Switch */}
             <div className="flex items-center justify-center gap-6 mb-16">
               <span className={`text-sm font-black tracking-widest uppercase transition-colors ${comparisonMode === 'grid' ? 'text-white' : 'text-white/20'}`}>Traditional Grid</span>
-              <button 
+              <Button 
+                variant="ghost"
                 onClick={() => setComparisonMode(prev => prev === 'grid' ? 'solar' : 'grid')}
-                className="w-24 h-12 glass rounded-full relative p-1 transition-all"
+                className="w-24 h-12 glass rounded-full relative p-1 transition-all bg-transparent hover:bg-transparent"
               >
                 <motion.div 
                   animate={{ x: comparisonMode === 'solar' ? 48 : 0 }}
                   className="w-10 h-10 bg-solar-yellow rounded-full shadow-[0_0_20px_rgba(255,215,0,0.5)]"
                 />
-              </button>
+              </Button>
               <span className={`text-sm font-black tracking-widest uppercase transition-colors ${comparisonMode === 'solar' ? 'text-solar-yellow' : 'text-white/20'}`}>SolarMax AI</span>
             </div>
           </div>

@@ -228,32 +228,33 @@ const DateTimePicker = ({
                     >
                         {/* Header: Month Checks */}
                         <div className="flex items-center justify-between mb-4">
-                            <button onClick={() => navigateMonth(-1)} className="p-1 hover:bg-white/10 rounded-lg text-white/60 hover:text-white">
+                            <Button variant="ghost" size="icon" onClick={() => navigateMonth(-1)} className="p-1 hover:bg-white/10 rounded-lg text-white/60 hover:text-white h-auto w-auto">
                                 <ChevronLeft className="w-5 h-5" />
-                            </button>
+                            </Button>
                             <span className="font-black uppercase tracking-wide text-sm">
                                 {MONTHS[viewDate.getMonth()]} {viewDate.getFullYear()}
                             </span>
-                            <button onClick={() => navigateMonth(1)} className="p-1 hover:bg-white/10 rounded-lg text-white/60 hover:text-white">
+                            <Button variant="ghost" size="icon" onClick={() => navigateMonth(1)} className="p-1 hover:bg-white/10 rounded-lg text-white/60 hover:text-white h-auto w-auto">
                                 <ChevronRight className="w-5 h-5" />
-                            </button>
+                            </Button>
                         </div>
 
                         {/* Presets (Range Mode Only) */}
                         {mode === 'range' && (
                             <div className="flex flex-wrap gap-2 mb-4 pb-4 border-b border-white/10">
                                 {PRESETS.map(preset => (
-                                    <button 
+                                    <Button
                                         key={preset.label}
+                                        variant="ghost"
                                         onClick={() => {
                                             const val = preset.getValue();
                                             setTempValue(val);
                                             setViewDate(val.start); // Jump to start
                                         }}
-                                        className="text-[10px] px-2 py-1 bg-white/5 hover:bg-white/10 rounded border border-white/10 text-white/60 hover:text-solar-yellow transition-colors"
+                                        className="text-[10px] px-2 py-1 bg-white/5 hover:bg-white/10 rounded border border-white/10 text-white/60 hover:text-solar-yellow transition-colors h-auto"
                                     >
                                         {preset.label}
-                                    </button>
+                                    </Button>
                                 ))}
                             </div>
                         )}

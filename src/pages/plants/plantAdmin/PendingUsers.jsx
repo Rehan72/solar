@@ -160,9 +160,9 @@ const PendingUsers = () => {
                         >
                             <div className="flex justify-between items-center mb-6">
                                 <h2 className="text-2xl font-black uppercase text-white">Assign User</h2>
-                                <button onClick={() => setIsAssignModalOpen(false)} className="text-white/40 hover:text-white">
+                                <Button variant="ghost" size="icon" onClick={() => setIsAssignModalOpen(false)} className="text-white/40 hover:text-white h-auto p-1">
                                     <X className="w-6 h-6" />
-                                </button>
+                                </Button>
                             </div>
 
                             <div className="space-y-6">

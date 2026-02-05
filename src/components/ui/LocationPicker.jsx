@@ -348,13 +348,15 @@ const LocationPicker = ({
                 : 'border-white/10 focus:border-solar-yellow/50'
             }`}
           />
-          <button
+          <Button
             type="button"
+            variant="ghost" 
+            size="icon"
             onClick={() => setIsMapOpen(true)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-solar-yellow/20 hover:bg-solar-yellow/30 rounded-lg transition-colors group"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-solar-yellow/20 hover:bg-solar-yellow/30 rounded-lg transition-colors group h-auto w-auto"
           >
             <MapPin className="w-5 h-5 text-solar-yellow group-hover:scale-110 transition-transform" />
-          </button>
+          </Button>
         </div>
         {hasLocationError && (
           <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
@@ -465,24 +467,28 @@ const LocationPicker = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="p-2 glass rounded-lg hover:bg-white/10 transition-colors"
+                    className="p-2 glass rounded-lg hover:bg-white/10 transition-colors h-auto w-auto"
                   >
                     {isFullscreen ? (
                       <Minimize2 className="w-5 h-5 text-white/60" />
                     ) : (
                       <Maximize2 className="w-5 h-5 text-white/60" />
                     )}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={cancelSelection}
-                    className="p-2 glass rounded-lg hover:bg-red-500/20 transition-colors"
+                    className="p-2 glass rounded-lg hover:bg-red-500/20 transition-colors h-auto w-auto"
                   >
                     <X className="w-5 h-5 text-white/60" />
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -514,26 +520,28 @@ const LocationPicker = ({
                     </div>
                   )}
                 </div>
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={searchLocation}
                   disabled={isSearching}
-                  className="px-4 py-3 bg-solar-yellow/20 hover:bg-solar-yellow/30 rounded-xl transition-colors flex items-center gap-2"
+                  className="px-4 py-3 bg-solar-yellow/20 hover:bg-solar-yellow/30 rounded-xl transition-colors flex items-center gap-2 h-auto"
                 >
                   {isSearching ? (
                     <Loader2 className="w-5 h-5 text-solar-yellow animate-spin" />
                   ) : (
                     <Search className="w-5 h-5 text-solar-yellow" />
                   )}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={getCurrentLocation}
-                  className="px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors flex items-center gap-2"
+                  className="px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors flex items-center gap-2 h-auto"
                   title="Use current location"
                 >
                   <Crosshair className="w-5 h-5 text-white/60" />
-                </button>
+                </Button>
               </div>
 
               {/* Map Container */}
@@ -587,18 +595,19 @@ const LocationPicker = ({
                   )}
                 </div>
                 <div className="flex items-center gap-3">
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
                     onClick={cancelSelection}
-                    className="px-6 py-3 text-sm font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
+                    className="px-6 py-3 text-sm font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors h-auto"
                   >
                     Cancel
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
                     onClick={confirmSelection}
                     disabled={!position}
-                    className={`px-6 py-3 rounded-xl text-sm font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
+                    className={`px-6 py-3 rounded-xl text-sm font-black uppercase tracking-wider flex items-center gap-2 transition-all h-auto ${
                       position
                         ? 'bg-solar-yellow text-deep-navy hover:scale-105 shadow-[0_0_20px_rgba(255,215,0,0.3)]'
                         : 'bg-white/10 text-white/30 cursor-not-allowed'
@@ -606,7 +615,7 @@ const LocationPicker = ({
                   >
                     <Check className="w-4 h-4" />
                     Confirm Location
-                  </button>
+                  </Button>
                 </div>
               </div>
             </motion.div>
@@ -633,15 +642,16 @@ const LocationPicker = ({
             }}
           >
             {suggestions.map((suggestion, index) => (
-              <button
+              <Button
                 key={suggestion.place_id || index}
                 type="button"
+                variant="ghost"
                 onClick={() => selectSuggestion(suggestion)}
-                className="w-full px-4 py-3 flex items-start gap-3 hover:bg-solar-yellow/10 transition-colors text-left border-b border-white/5 last:border-b-0"
+                className="w-full px-4 py-3 flex items-start justify-start gap-3 hover:bg-solar-yellow/10 transition-colors text-left border-b border-white/5 last:border-b-0 h-auto rounded-none"
                 style={{ backgroundColor: 'transparent' }}
               >
                 <MapPinned className="w-5 h-5 text-solar-yellow shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 text-left">
                   <p className="text-sm font-medium text-white truncate">
                     {suggestion.display_name?.split(',')[0]}
                   </p>
@@ -649,7 +659,7 @@ const LocationPicker = ({
                     {suggestion.display_name?.split(',').slice(1, 4).join(',')}
                   </p>
                 </div>
-              </button>
+              </Button>
             ))}
           </motion.div>
         </AnimatePresence>,

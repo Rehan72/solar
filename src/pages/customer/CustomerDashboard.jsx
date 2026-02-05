@@ -86,9 +86,9 @@ const CustomerDashboard = () => {
           </div>
           <div className="flex items-center gap-4">
                {/* Demo Toggle */}
-            <button onClick={toggleDemoState} className="text-xs text-white/20 hover:text-white/60 border border-white/10 px-2 py-1 rounded">
+               <Button variant="ghost" size="sm" onClick={toggleDemoState} className="text-xs text-white/20 hover:text-white/60 border border-white/10 px-2 py-1 h-auto rounded">
                   Toggle Survey/Quote
-              </button>
+              </Button>
               
               <Button 
                 variant="ghost" 

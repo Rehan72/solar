@@ -127,7 +127,7 @@ const Login = () => {
                 </div>
                 <span className="text-blue-100/40 group-hover:text-white transition-colors">Remember Me</span>
               </label>
-              <button type="button" onClick={() => navigate('/forgot-password')} className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4 cursor-pointer">Forgot Password?</button>
+              <Button variant="link" onClick={() => navigate('/forgot-password')} className="text-solar-yellow hover:text-solar-gold transition-colors underline decoration-dotted underline-offset-4 cursor-pointer p-0 h-auto font-black tracking-widest uppercase">Forgot Password?</Button>
             </div>
 
             <Button className="w-full bg-solar-yellow text-deep-navy font-black py-7 rounded-2xl text-sm tracking-[0.2em] shadow-[0_0_20px_rgba(255,215,0,0.2)] group overflow-hidden relative cursor-pointer">
@@ -145,39 +145,38 @@ const Login = () => {
           <div className="mt-10 pt-10 border-t border-white/10">
             <p className="text-center text-xs font-black text-blue-100/20 tracking-[0.3em] uppercase mb-6">Or continue with</p>
             <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center gap-3 glass py-3 rounded-xl hover:bg-white/10 transition-all text-[10px] font-black tracking-widest uppercase">
+              <Button variant="ghost" className="flex items-center justify-center gap-3 glass py-3 rounded-xl hover:bg-white/10 transition-all text-[10px] font-black tracking-widest uppercase h-auto">
                 <Github className="w-4 h-4 text-solar-yellow" /> Github
-              </button>
-              <button className="flex items-center justify-center gap-3 glass py-3 rounded-xl hover:bg-white/10 transition-all text-[10px] font-black tracking-widest uppercase">
+              </Button>
+              <Button variant="ghost" className="flex items-center justify-center gap-3 glass py-3 rounded-xl hover:bg-white/10 transition-all text-[10px] font-black tracking-widest uppercase h-auto">
                 <svg className="w-4 h-4 text-solar-yellow" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.908 3.152-2.008 4.252-1.348 1.348-3.488 2.82-7.84 2.82-6.72 0-12.12-5.4-12.12-12.12s5.4-12.12 12.12-12.12c3.48 0 6.24 2.32 7.84 4.56l2.48-2.48C18.12 2.36 15.36 0 12.48 0 5.58 0 0 5.58 0 12.48s5.58 12.48 12.48 12.48c3.72 0 6.6-1.2 8.76-3.48 2.22-2.22 2.94-5.28 2.94-7.8 0-.72-.06-1.38-.18-1.92h-11.52z" />
                 </svg>
                 Google
-              </button>
+              </Button>
             </div>
           </div>
           
           <p className="mt-10 text-center text-xs font-bold tracking-widest uppercase text-blue-100/40">
             DON'T HAVE AN ACCOUNT?{' '}
-            <button 
+            <Button 
+             variant="link"
               onClick={() => navigate('/register')}
-              className="text-solar-yellow hover:text-solar-gold transition-colors font-black"
+              className="text-solar-yellow hover:text-solar-gold transition-colors font-black p-0 h-auto"
             >
               INITIALIZE SIGNUP
-            </button>
+            </Button>
           </p>
         </div>
 
         {/* Back to Home */}
-        <motion.button 
+        <Button 
+          variant="ghost" 
           onClick={() => navigate('/')}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="mt-8 flex items-center justify-center gap-2 text-white/30 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase w-full group relative z-20"
+          className="mt-8 flex items-center justify-center gap-2 text-white/30 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase w-full group relative z-20 bg-transparent hover:bg-transparent h-auto p-0"
         >
           <Sun className="w-3 h-3 group-hover:rotate-180 transition-transform duration-700" /> Return to Earth
-        </motion.button>
+        </Button>
       </motion.div>
     </AuthLayout>
   );

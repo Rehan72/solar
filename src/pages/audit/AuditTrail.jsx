@@ -285,15 +285,17 @@ function AuditTrail() {
 
                                  {/* Context Menu */}
                                  <div className="relative self-center">
-                                     <button 
+                                     <Button 
+                                        variant="ghost"
+                                        size="icon"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setOpenMenuId(openMenuId === log.id ? null : log.id);
                                         }}
-                                        className="p-2 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors"
+                                        className="h-8 w-8 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors"
                                      >
                                          <MoreVertical className="w-5 h-5" />
-                                     </button>
+                                     </Button>
 
                                      {/* Dropdown */}
                                      <AnimatePresence>
@@ -306,24 +308,26 @@ function AuditTrail() {
                                                 onClick={(e) => e.stopPropagation()}
                                              >
                                                 <div className="p-1">
-                                                     <button 
+                                                     <Button 
+                                                        variant="ghost"
                                                         onClick={() => {
                                                             setSelectedLog(log);
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full text-left px-4 py-3 text-sm font-bold text-white hover:bg-white/5 rounded-lg flex items-center gap-2"
+                                                        className="w-full justify-start px-4 py-3 text-sm font-bold text-white hover:bg-white/5 rounded-lg flex items-center gap-2 h-auto"
                                                      >
                                                          <Eye className="w-4 h-4 text-solar-yellow" /> View Details
-                                                     </button>
-                                                     <button 
+                                                     </Button>
+                                                     <Button 
+                                                        variant="ghost"
                                                         onClick={() => {
                                                             navigator.clipboard.writeText(JSON.stringify(log, null, 2));
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full text-left px-4 py-3 text-sm font-bold text-white hover:bg-white/5 rounded-lg flex items-center gap-2"
+                                                        className="w-full justify-start px-4 py-3 text-sm font-bold text-white hover:bg-white/5 rounded-lg flex items-center gap-2 h-auto"
                                                      >
                                                          <Copy className="w-4 h-4 text-blue-400" /> Copy Data
-                                                     </button>
+                                                     </Button>
                                                 </div>
                                              </motion.div>
                                          )}

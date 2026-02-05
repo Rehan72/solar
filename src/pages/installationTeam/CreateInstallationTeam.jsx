@@ -207,12 +207,12 @@ function CreateInstallationTeam() {
         return (
             <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
                 <div className="flex gap-4 mb-6">
-                    <button type="button" onClick={() => setFormData({...formData, teamLeadMode: 'existing'})} className={`flex-1 py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border ${formData.teamLeadMode === 'existing' ? 'bg-white/10 border-solar-yellow text-solar-yellow' : 'bg-transparent border-white/10 text-white/40 hover:text-white'}`}>
+                    <Button type="button" onClick={() => setFormData({...formData, teamLeadMode: 'existing'})} className={`flex-1 py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border h-auto ${formData.teamLeadMode === 'existing' ? 'bg-white/10 border-solar-yellow text-solar-yellow' : 'bg-transparent border-white/10 text-white/40 hover:text-white'}`}>
                         Select Existing User
-                    </button>
-                    <button type="button" onClick={() => setFormData({...formData, teamLeadMode: 'new'})} className={`flex-1 py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border ${formData.teamLeadMode === 'new' ? 'bg-white/10 border-solar-yellow text-solar-yellow' : 'bg-transparent border-white/10 text-white/40 hover:text-white'}`}>
+                    </Button>
+                    <Button type="button" onClick={() => setFormData({...formData, teamLeadMode: 'new'})} className={`flex-1 py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border h-auto ${formData.teamLeadMode === 'new' ? 'bg-white/10 border-solar-yellow text-solar-yellow' : 'bg-transparent border-white/10 text-white/40 hover:text-white'}`}>
                         Create New User
-                    </button>
+                    </Button>
                 </div>
 
                 {formData.teamLeadMode === 'existing' ? (
@@ -317,13 +317,15 @@ function CreateInstallationTeam() {
                                             </span>
                                         </div>
                                     </div>
-                                    <button 
+                                    <Button 
                                         type="button" 
+                                        variant="ghost"
+                                        size="icon"
                                         onClick={() => handleRemoveMember(member.userId)}
                                         className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-500/20 text-white/40 hover:text-red-400 transition-colors"
                                     >
                                         <X className="w-5 h-5" />
-                                    </button>
+                                    </Button>
                                 </motion.div>
                             ))}
                         </AnimatePresence>

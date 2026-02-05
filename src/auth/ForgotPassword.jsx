@@ -102,12 +102,13 @@ const ForgotPassword = () => {
           </form>
 
           <div className="mt-10 pt-10 border-t border-white/10 text-center">
-            <button 
+            <Button 
+              variant="link"
               onClick={() => navigate('/login')}
-              className="flex items-center justify-center gap-2 mx-auto text-blue-100/40 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase group"
+              className="flex items-center justify-center gap-2 mx-auto text-blue-100/40 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase group h-auto p-0"
             >
               <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Back to Login
-            </button>
+            </Button>
           </div>
         </div>
       </motion.div>

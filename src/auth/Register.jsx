@@ -201,7 +201,7 @@ const Register = () => {
                   {formData.agreeToTerms && <ShieldCheck className="w-3 h-3 text-deep-navy" />}
                 </div>
                 <span className="text-[10px] leading-relaxed text-blue-100/40 group-hover:text-white transition-colors font-bold uppercase tracking-widest">
-                  I AGREE TO THE <button type="button" className="text-solar-yellow underline underline-offset-4 decoration-dotted">TERMS OF SERVICE</button> AND <button type="button" className="text-solar-yellow underline underline-offset-4 decoration-dotted">PRIVACY POLICY</button>
+                  I AGREE TO THE <Button variant="link" className="text-solar-yellow underline underline-offset-4 decoration-dotted p-0 h-auto font-bold uppercase tracking-widest text-[10px]">TERMS OF SERVICE</Button> AND <Button variant="link" className="text-solar-yellow underline underline-offset-4 decoration-dotted p-0 h-auto font-bold uppercase tracking-widest text-[10px]">PRIVACY POLICY</Button>
                 </span>
               </label>
             </div>
@@ -220,25 +220,24 @@ const Register = () => {
           
           <p className="mt-10 text-center text-xs font-bold tracking-widest uppercase text-blue-100/40">
             ALREADY SECURED?{' '}
-            <button 
+            <Button
+              variant="link" 
               onClick={() => navigate('/login')}
-              className="text-solar-yellow hover:text-solar-gold transition-colors font-black"
+              className="text-solar-yellow hover:text-solar-gold transition-colors font-black p-0 h-auto"
             >
               NAVIGATE TO LOGIN
-            </button>
+            </Button>
           </p>
         </div>
 
         {/* Home Link */}
-        <motion.button 
+        <Button 
+          variant="ghost"
           onClick={() => navigate('/')}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="mt-8 flex items-center justify-center gap-2 text-white/30 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase w-full group relative z-20"
+          className="mt-8 flex items-center justify-center gap-2 text-white/30 hover:text-white transition-colors text-[10px] font-black tracking-[0.4em] uppercase w-full group relative z-20 bg-transparent hover:bg-transparent h-auto p-0"
         >
           <Sun className="w-3 h-3 group-hover:rotate-180 transition-transform duration-700" /> Back to Solar System
-        </motion.button>
+        </Button>
       </motion.div>
     </AuthLayout>
   );

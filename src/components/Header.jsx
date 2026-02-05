@@ -2,6 +2,7 @@ import React from 'react';
 import { Search, Bell, Menu, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import RealisticSun from './ui/RealisticSun';
+import { Button } from './ui/button';
 
 
 function Header({ sidebarOpen, setSidebarOpen }) {
@@ -9,12 +10,14 @@ function Header({ sidebarOpen, setSidebarOpen }) {
     <div className="flex h-16 items-center justify-between px-6 md:px-10">
       {/* Branding & Mobile Toggle */}
       <div className="flex items-center gap-4">
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="lg:hidden p-2 rounded-xl hover:bg-white/5 transition-colors border border-white/5"
+          className="lg:hidden p-2 rounded-xl hover:bg-white/5 transition-colors border border-white/5 h-auto w-auto"
         >
           <Menu className="w-5 h-5 text-solar-yellow" />
-        </button>
+        </Button>
 
         <div className="flex items-center group">
           <div className="w-12 h-12 relative flex items-center justify-center overflow-hidden shrink-0">
@@ -41,14 +44,16 @@ function Header({ sidebarOpen, setSidebarOpen }) {
       {/* Right Actions */}
       <div className="flex items-center gap-2 md:gap-4">
         {/* Notifications */}
-        <motion.button
+        <Button
+          variant="ghost"
+          size="icon"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="relative p-2.5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group"
+          className="relative p-2.5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group h-auto w-auto"
         >
           <Bell className="w-5 h-5 text-solar-yellow/60 group-hover:text-solar-yellow transition-colors" />
           <span className="absolute top-2 right-2 w-2 h-2 bg-solar-yellow rounded-full shadow-[0_0_10px_rgba(255,215,0,0.8)]" />
-        </motion.button>
+        </Button>
 
         {/* User Profile */}
         <div className="h-10 w-px bg-white/5 mx-2 hidden sm:block" />
