@@ -178,6 +178,11 @@ export const columns = [
             >
               Copy Plant ID
             </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => navigate(`/grid-plant/${plant.id}/payments`)}
+            >
+                Manage Payments
+            </DropdownMenuItem>
             <DropdownMenuItem>Edit Plant</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

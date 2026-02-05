@@ -1,6 +1,7 @@
 
 import Dashboard from "../pages/superAdmin/Dashboard";
 import CreatePlant from "../pages/plants/CreatePlant";
+import PlantPayments from "../pages/plants/PlantPayments";
 import PlantList from "../pages/plants/PlantList";
 import RegionAdminList from "../pages/regionAdmin/RegionAdminList";
 import CreateRegionAdmin from "../pages/regionAdmin/CreateRegionAdmin";
@@ -21,7 +22,13 @@ import CustomerDashboard from "../pages/customer/CustomerDashboard";
 import SolarRequests from "../pages/admin/SolarRequests";
 import CustomerList from "../pages/customer/CustomerList";
 import CreateCustomer from "../pages/customer/CreateCustomer";
+import CustomerPayments from "../pages/customer/CustomerPayments";
 
+
+import CustomerInvoices from "../pages/customer/CustomerInvoices";
+import CustomerBenefits from "../pages/customer/CustomerBenefits";
+import CustomerCancellation from "../pages/customer/CustomerCancellation";
+import PlantCancellation from "../pages/plants/PlantCancellation";
 
 export const routeParams = "management";
 
@@ -57,6 +64,16 @@ export default [
      element: CreatePlant,
      path: `grid-plant/create`,
      //permission: RoutePermission?.PLATFORM_ADMIN,
+     exact: true
+   },
+   {
+     element: PlantPayments,
+     path: `grid-plant/:id/payments`,
+     exact: true
+   },
+   {
+     element: PlantCancellation,
+     path: `grid-plant/:id/cancellation`,
      exact: true
    },
    {
@@ -141,9 +158,29 @@ export default [
      path: `customer`,
      exact: true
    },
-   {
+    {
      element: CreateCustomer,
      path: `customer/create`,
+     exact: true
+   },
+   {
+     element: CustomerPayments,
+     path: `customer/payments`,
+     exact: true
+   },
+   {
+     element: CustomerInvoices,
+     path: `customer/invoices`,
+     exact: true
+   },
+   {
+     element: CustomerBenefits,
+     path: `customer/benefits`,
+     exact: true
+   },
+   {
+     element: CustomerCancellation,
+     path: `customer/cancellation`,
      exact: true
    },
 

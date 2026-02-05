@@ -164,3 +164,75 @@ export const MOCK_REGION_ADMINS = [
     joinedDate: '2023-03-10'
   },
 ];
+
+// Mock Payment Milestones Data
+export const MOCK_PAYMENT_MILESTONES = [
+  { 
+    id: "M1", 
+    name: "Booking Advance", 
+    amount: 20000, 
+    status: "PAID", 
+    date: "2026-02-01",
+    description: "Initial booking amount to confirm order"
+  },
+  { 
+    id: "M2", 
+    name: "Survey Completion", 
+    amount: 30000, 
+    status: "PAID", 
+    date: "2026-02-05",
+    description: "Payment after successful site survey"
+  },
+  { 
+    id: "M3", 
+    name: "Installation Start", 
+    amount: 100000, 
+    status: "DUE", 
+    date: null,
+    description: "Required before mobilization of material"
+  },
+  { 
+    id: "M4", 
+    name: "Installation Complete", 
+    amount: 70000, 
+    status: "LOCKED", 
+    date: null,
+    description: "Payable after physical installation is done"
+  },
+  { 
+    id: "M5", 
+    name: "Commissioning", 
+    amount: 20000, 
+    status: "LOCKED", 
+    date: null,
+    description: "Final payment after net metering & go-live"
+  },
+];
+
+export const MOCK_INVOICES = [
+    { id: "INV-001", date: "2026-02-01", item: "Booking Advance", amount: 20000, gst: 1000, total: 21000, status: "PAID" },
+    { id: "INV-002", date: "2026-02-05", item: "Survey Completion", amount: 30000, gst: 1500, total: 31500, status: "PAID" },
+];
+
+export const MOCK_SUBSIDY_DETAILS = {
+    eligibleAmount: 78000,
+    status: "Applied",
+    timeline: [
+        { status: "Applied", date: "2026-02-10", completed: true },
+        { status: "Approved", date: null, completed: false },
+        { status: "Credited", date: null, completed: false },
+    ]
+};
+
+export const CANCELLATION_RULES = {
+    "Request Submitted": { refundPercentage: 100, fee: 0 },
+    "Survey Completed": { refundPercentage: 80, fee: 5000 },
+    "Installation Started": { refundPercentage: 50, fee: 20000 },
+    "Installation Completed": { refundPercentage: 0, fee: 0 },
+};
+
+export const MOCK_EMI_PLANS = [
+    { months: 12, interest: 10 },
+    { months: 24, interest: 12 },
+    { months: 36, interest: 14 },
+];

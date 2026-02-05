@@ -86,9 +86,49 @@ const CustomerDashboard = () => {
           </div>
           <div className="flex items-center gap-4">
                {/* Demo Toggle */}
-              <button onClick={toggleDemoState} className="text-xs text-white/20 hover:text-white/60 border border-white/10 px-2 py-1 rounded">
+            <button onClick={toggleDemoState} className="text-xs text-white/20 hover:text-white/60 border border-white/10 px-2 py-1 rounded">
                   Toggle Survey/Quote
               </button>
+              
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => navigate('/customer/payments')}
+                className="text-white/70 hover:text-white border border-white/10 bg-white/5"
+              >
+                  <Wallet className="w-4 h-4 mr-2 text-emerald-400" />
+                  Payments
+              </Button>
+
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => navigate('/customer/invoices')}
+                className="text-white/70 hover:text-white border border-white/10 bg-white/5"
+              >
+                  <FileText className="w-4 h-4 mr-2 text-blue-400" />
+                  Invoices
+              </Button>
+
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => navigate('/customer/benefits')}
+                className="text-white/70 hover:text-white border border-white/10 bg-white/5"
+              >
+                  <Sun className="w-4 h-4 mr-2 text-solar-yellow" />
+                  Benefits
+              </Button>
+
+              <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => navigate('/customer/cancellation')}
+                    className="text-white/70 hover:text-white border border-white/10 bg-white/5 hover:bg-red-500/10 hover:border-red-500/20"
+                >
+                    <LogOut className="w-4 h-4 mr-2 text-red-400" />
+                    Cancel
+                </Button>
               
               <div className="flex items-center gap-3 pl-4 border-l border-white/10">
                   <div className="text-right hidden md:block">
