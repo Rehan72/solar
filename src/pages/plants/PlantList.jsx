@@ -219,6 +219,11 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
+              onClick={() => navigate(`/plant-admin/create`)}
+            >
+              Create Plant Admin
+            </DropdownMenuItem>
+            <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(plant.id)}
             >
               Copy Plant ID
@@ -276,13 +281,13 @@ function PlantList() {
             </div>
             
             <Button 
-              onClick={() => navigate('/plants/create')}
+              onClick={() => navigate('/grid-plant/create')}
               variant="default"
               size="lg"
               className="hover:scale-105 transition-transform font-black px-8 py-6 rounded-full text-sm shadow-[0_0_30px_rgba(255,215,0,0.3)] flex items-center gap-3"
             >
               <Plus className="w-5 h-5" />
-              ADD NEW PLANT
+              ADD GRID PLANT
             </Button>
           </div>
         </motion.div>

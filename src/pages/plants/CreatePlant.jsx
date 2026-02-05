@@ -30,8 +30,12 @@ import {
   Globe,
   Map,
   Hash,
-  Factory
+  Factory,
+  List,
+  Clock,
+  ChevronDown
 } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { Button } from '../../components/ui/button';
 import LocationPicker from '../../components/ui/LocationPicker';
 import Select from '../../components/ui/Select';
@@ -41,6 +45,12 @@ const STATUS_OPTIONS = [
   { value: 'draft', label: 'Draft' },
   { value: 'active', label: 'Active' },
   { value: 'maintenance', label: 'Maintenance' }
+];
+
+const REGION_ADMIN_OPTIONS = [
+  { value: 'RA-001', label: 'Robert Fox (North Region)' },
+  { value: 'RA-002', label: 'Arlene McCoy (West Region)' },
+  { value: 'RA-003', label: 'Eleanor Pena (South Region)' },
 ];
 
 const VOLTAGE_OPTIONS = [
@@ -84,7 +94,9 @@ const TABS = [
 
 function CreatePlant() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = React.useState('identity');
+  const [showAdvanced, setShowAdvanced] = React.useState(false);
   
   const [formData, setFormData] = React.useState({
     // 1. Plant Identity
@@ -93,6 +105,7 @@ function CreatePlant() {
     plantType: 'grid_connected',
     capacity: '',
     status: 'draft',
+    regionAdminId: '',
     
     // 2. Location & Grid Info
     location: '',
@@ -142,6 +155,12 @@ function CreatePlant() {
 
   const [errors, setErrors] = React.useState({});
   const [touched, setTouched] = React.useState({});
+
+  React.useEffect(() => {
+    if (location.state?.adminId) {
+        setFormData(prev => ({ ...prev, regionAdminId: location.state.adminId }));
+    }
+  }, [location.state]);
 
   // Validation rules (Same as before)
   const validateField = (name, value) => {
@@ -232,7 +251,7 @@ function CreatePlant() {
     
     if (Object.keys(newErrors).length === 0) {
       console.log('Form submitted:', formData);
-      navigate('/plants');
+      navigate('/grid-plant');
     }
   };
 
@@ -256,6 +275,19 @@ function CreatePlant() {
                   <input type="text" name="plantCode" value={formData.plantCode} onChange={handleChange} placeholder="e.g., SOL-2024-001" className={getInputClassName('plantCode', touched, errors)} />
                 </div>
               </FormField>
+
+              <div className="relative">
+                <Select
+                  name="regionAdminId"
+                  label="Region Admin"
+                  value={formData.regionAdminId}
+                  onChange={handleChange}
+                  options={REGION_ADMIN_OPTIONS}
+                  icon={User}
+                  placeholder="Select Region Admin"
+                  error={touched.regionAdminId && errors.regionAdminId}
+                />
+              </div>
 
               <FormField name="plantType" label="Plant Type" touched={touched} errors={errors}>
                 <div className="relative">
@@ -326,7 +358,7 @@ function CreatePlant() {
                 </div>
               </FormField>
 
-               <div className="relative">
+              <div className="relative">
                 <Select
                   name="gridVoltage"
                   label="Grid Voltage Level"
@@ -338,6 +370,13 @@ function CreatePlant() {
                   error={touched.gridVoltage && errors.gridVoltage}
                 />
               </div>
+
+              <FormField name="connectionDate" label="Grid Connection Date" touched={touched} errors={errors}>
+                <div className="relative">
+                  <Calendar className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="date" name="connectionDate" value={formData.connectionDate} onChange={handleChange} className={getInputClassName('connectionDate', touched, errors)} />
+                </div>
+              </FormField>
             </div>
           </div>
         );
@@ -447,6 +486,43 @@ function CreatePlant() {
                 />
               </div>
 
+              {/* Advanced Connectivity Settings */}
+              <div className="md:col-span-2 border-t border-white/10 pt-4">
+                 <button 
+                   type="button" 
+                   onClick={() => setShowAdvanced(!showAdvanced)}
+                   className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-solar-yellow hover:text-white transition-colors mb-4"
+                 >
+                   Advanced Configuration
+                   <ChevronDown className={`w-4 h-4 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
+                 </button>
+
+                 <AnimatePresence>
+                   {showAdvanced && (
+                     <motion.div
+                       initial={{ height: 0, opacity: 0 }}
+                       animate={{ height: 'auto', opacity: 1 }}
+                       exit={{ height: 0, opacity: 0 }}
+                       className="overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-6"
+                     >
+                        <FormField name="loggerId" label="Data Logger Serial ID" touched={touched} errors={errors}>
+                          <div className="relative">
+                            <List className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                            <input type="text" name="loggerId" value={formData.loggerId} onChange={handleChange} placeholder="e.g., DLOG-X99" className={getInputClassName('loggerId', touched, errors)} />
+                          </div>
+                        </FormField>
+
+                        <FormField name="dataPushInterval" label="Data Push Interval (Mins)" touched={touched} errors={errors}>
+                          <div className="relative">
+                            <Clock className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                            <input type="number" name="dataPushInterval" value={formData.dataPushInterval} onChange={handleChange} className={getInputClassName('dataPushInterval', touched, errors)} />
+                          </div>
+                        </FormField>
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+              </div>
+
               <div className="md:col-span-2 pt-4 border-t border-white/10">
                  <label className="block text-xs font-bold uppercase tracking-widest mb-4 text-white/60">Installed Sensors</label>
                  <div className="flex flex-wrap gap-6">
@@ -528,7 +604,7 @@ function CreatePlant() {
       <div className="relative z-10 px-6 md:px-12 mx-auto pb-20 pt-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-            <Button variant="ghost" onClick={() => navigate('/plants')} className="flex items-center gap-3 text-white/60 hover:text-white p-0 h-auto hover:bg-transparent">
+            <Button variant="ghost" onClick={() => navigate('/grid-plant')} className="flex items-center gap-3 text-white/60 hover:text-white p-0 h-auto hover:bg-transparent">
                 <div className="w-10 h-10 glass rounded-full flex items-center justify-center group-hover:bg-white/10 transition-colors">
                     <ArrowLeft className="w-5 h-5 text-solar-yellow" />
                 </div>

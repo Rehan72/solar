@@ -19,7 +19,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const menuItems = [
     { name: 'DASHBOARD', icon: LayoutDashboard, path: '/dashboard' },
-    { name: 'PLANTS', icon:BugPlay , path: '/plants' },
+    { name: 'REGION ADMIN', icon:LayoutDashboard , path: '/region-admin' },
+    { name: 'GRID PLANT', icon:BugPlay , path: '/grid-plant' },
+    { name: 'PLANT ADMIN', icon:BugPlay , path: '/plant-admin' },
     { name: 'ANALYTICS', icon: Activity, path: '/analytics' },
     { name: 'SYSTEM HEALTH', icon: Zap, path: '/health' },
     { name: 'DEVICES', icon: HardDrive, path: '/devices' },
