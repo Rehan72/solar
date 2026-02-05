@@ -26,7 +26,11 @@ import {
   Server,
   Layers,
   Cpu,
-  ChevronRight
+  ChevronRight,
+  Globe,
+  Map,
+  Hash,
+  Factory
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import LocationPicker from '../../components/ui/LocationPicker';
@@ -303,10 +307,16 @@ function CreatePlant() {
               </div>
 
               <FormField name="country" label="Country" touched={touched} errors={errors}>
-                <input type="text" name="country" value={formData.country} onChange={handleChange} className={getInputClassName('country', touched, errors)} />
+                <div className="relative">
+                  <Globe className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="text" name="country" value={formData.country} onChange={handleChange} className={getInputClassName('country', touched, errors)} />
+                </div>
               </FormField>
               <FormField name="state" label="State" touched={touched} errors={errors}>
-                <input type="text" name="state" value={formData.state} onChange={handleChange} className={getInputClassName('state', touched, errors)} />
+                <div className="relative">
+                  <Map className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="text" name="state" value={formData.state} onChange={handleChange} className={getInputClassName('state', touched, errors)} />
+                </div>
               </FormField>
 
               <FormField name="utilityName" label="Utility / DISCOM" touched={touched} errors={errors}>
@@ -342,17 +352,27 @@ function CreatePlant() {
                   value={formData.inverterType}
                   onChange={handleChange}
                   options={INVERTER_TYPE_OPTIONS}
+                  icon={Cpu}
                   error={touched.inverterType && errors.inverterType}
                 />
               </div>
               <FormField name="inverterMake" label="Inverter Brand/Model" touched={touched} errors={errors}>
-                <input type="text" name="inverterMake" value={formData.inverterMake} onChange={handleChange} placeholder="e.g., Sungrow SG110CX" className={getInputClassName('inverterMake', touched, errors)} />
+                <div className="relative">
+                  <Factory className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="text" name="inverterMake" value={formData.inverterMake} onChange={handleChange} placeholder="e.g., Sungrow SG110CX" className={getInputClassName('inverterMake', touched, errors)} />
+                </div>
               </FormField>
               <FormField name="inverterCount" label="Number of Inverters" touched={touched} errors={errors}>
-                <input type="number" name="inverterCount" value={formData.inverterCount} onChange={handleChange} className={getInputClassName('inverterCount', touched, errors)} />
+                <div className="relative">
+                  <Hash className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="number" name="inverterCount" value={formData.inverterCount} onChange={handleChange} className={getInputClassName('inverterCount', touched, errors)} />
+                </div>
               </FormField>
               <FormField name="inverterRatedPower" label="Rated Power per Inverter (kW)" touched={touched} errors={errors}>
-                <input type="number" name="inverterRatedPower" value={formData.inverterRatedPower} onChange={handleChange} className={getInputClassName('inverterRatedPower', touched, errors)} />
+                <div className="relative">
+                  <Zap className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="number" name="inverterRatedPower" value={formData.inverterRatedPower} onChange={handleChange} className={getInputClassName('inverterRatedPower', touched, errors)} />
+                </div>
               </FormField>
 
               <div className="md:col-span-2 pt-4 border-t border-white/10">
@@ -365,10 +385,16 @@ function CreatePlant() {
               {formData.transformerPresent === 'yes' && (
                 <>
                   <FormField name="transformerRating" label="Transformer Rating (LT -> HT)" touched={touched} errors={errors}>
-                    <input type="text" name="transformerRating" value={formData.transformerRating} onChange={handleChange} placeholder="e.g., 0.415 kV / 11 kV" className={getInputClassName('transformerRating', touched, errors)} />
+                    <div className="relative">
+                      <Zap className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                      <input type="text" name="transformerRating" value={formData.transformerRating} onChange={handleChange} placeholder="e.g., 0.415 kV / 11 kV" className={getInputClassName('transformerRating', touched, errors)} />
+                    </div>
                   </FormField>
                   <FormField name="transformerCapacity" label="Transformer Capacity (kVA)" touched={touched} errors={errors}>
-                    <input type="number" name="transformerCapacity" value={formData.transformerCapacity} onChange={handleChange} className={getInputClassName('transformerCapacity', touched, errors)} />
+                    <div className="relative">
+                      <Activity className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                      <input type="number" name="transformerCapacity" value={formData.transformerCapacity} onChange={handleChange} className={getInputClassName('transformerCapacity', touched, errors)} />
+                    </div>
                   </FormField>
                 </>
               )}
@@ -386,11 +412,15 @@ function CreatePlant() {
                   value={formData.meterType}
                   onChange={handleChange}
                   options={METER_TYPE_OPTIONS}
+                  icon={Gauge}
                   error={touched.meterType && errors.meterType}
                 />
               </div>
               <FormField name="meterMake" label="Meter Make/Model" touched={touched} errors={errors}>
-                <input type="text" name="meterMake" value={formData.meterMake} onChange={handleChange} placeholder="e.g., Secure Premier" className={getInputClassName('meterMake', touched, errors)} />
+                <div className="relative">
+                  <Gauge className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
+                  <input type="text" name="meterMake" value={formData.meterMake} onChange={handleChange} placeholder="e.g., Secure Premier" className={getInputClassName('meterMake', touched, errors)} />
+                </div>
               </FormField>
 
               <div className="relative">
@@ -412,6 +442,7 @@ function CreatePlant() {
                   value={formData.internetType}
                   onChange={handleChange}
                   options={INTERNET_OPTIONS}
+                  icon={Wifi}
                   error={touched.internetType && errors.internetType}
                 />
               </div>
@@ -508,38 +539,45 @@ function CreatePlant() {
             </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Sidebar Navigation */}
-            <div className="lg:col-span-3">
-                <div className="glass rounded-2xl p-4 sticky top-8">
-                    <nav className="space-y-2">
-                        {TABS.map((tab) => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left group ${
-                                    activeTab === tab.id 
-                                    ? 'bg-solar-yellow/10 border border-solar-yellow/20 text-white' 
-                                    : 'hover:bg-white/5 text-white/50 hover:text-white'
-                                }`}
-                            >
-                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-                                    activeTab === tab.id ? 'bg-solar-yellow text-deep-navy' : 'bg-white/5 group-hover:bg-white/10'
-                                }`}>
-                                    <tab.icon className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-sm font-bold uppercase tracking-wide">{tab.label}</p>
-                                    <p className="text-xs text-white/30 hidden md:block">{tab.description}</p>
-                                </div>
-                            </button>
-                        ))}
-                    </nav>
-                </div>
+        <div className="mx-auto">
+            {/* Horizontal Tabs */}
+            <div className="mb-8 overflow-x-auto pb-2">
+                <nav className="flex items-center gap-2 min-w-max border-b border-white/10">
+                    {TABS.map((tab) => (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`relative px-6 py-4 flex items-center gap-3 transition-colors group ${
+                                activeTab === tab.id 
+                                ? 'text-solar-yellow' 
+                                : 'text-white/40 hover:text-white'
+                            }`}
+                        >
+                            <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-solar-yellow' : 'text-current'}`} />
+                            <span className="font-bold uppercase tracking-wider text-sm whitespace-nowrap">{tab.label}</span>
+                            
+                            {activeTab === tab.id && (
+                                <motion.div 
+                                    layoutId="activeTab"
+                                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-solar-yellow shadow-[0_0_10px_rgba(255,215,0,0.5)]"
+                                    initial={false}
+                                />
+                            )}
+                        </button>
+                    ))}
+                </nav>
             </div>
 
             {/* Main Form Area */}
-            <div className="lg:col-span-9">
+            <div>
+                <div className="mb-6">
+                    <h2 className="text-2xl font-black uppercase tracking-wider">
+                        {TABS.find(t => t.id === activeTab)?.label}
+                    </h2>
+                    <p className="text-white/40">
+                         {TABS.find(t => t.id === activeTab)?.description}
+                    </p>
+                </div>
                 <motion.form
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -547,14 +585,7 @@ function CreatePlant() {
                     onSubmit={handleSubmit}
                     className="glass rounded-3xl p-8 md:p-12 min-h-[600px] flex flex-col justify-between"
                 >
-                    <div className="mb-8 border-b border-white/10 pb-4">
-                        <h2 className="text-2xl font-black uppercase tracking-wider">
-                            {TABS.find(t => t.id === activeTab)?.label}
-                        </h2>
-                        <p className="text-white/40">
-                             {TABS.find(t => t.id === activeTab)?.description}
-                        </p>
-                    </div>
+
 
                     <div className="flex-1">
                         {renderContent()}

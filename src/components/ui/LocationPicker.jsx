@@ -12,7 +12,8 @@ import {
   Minimize2,
   Search,
   Loader2,
-  MapPinned
+  MapPinned,
+  AlertCircle
 } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -357,7 +358,7 @@ const LocationPicker = ({
         </div>
         {hasLocationError && (
           <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
-            <span>⚠</span> {errors.location}
+            <AlertCircle className="w-3 h-3" /> {errors.location}
           </p>
         )}
       </div>
@@ -392,7 +393,7 @@ const LocationPicker = ({
           </div>
           {hasLatError && (
             <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
-              <span>⚠</span> {errors.latitude}
+              <AlertCircle className="w-3 h-3" /> {errors.latitude}
             </p>
           )}
         </div>
@@ -425,7 +426,7 @@ const LocationPicker = ({
           </div>
           {hasLngError && (
             <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
-              <span>⚠</span> {errors.longitude}
+              <AlertCircle className="w-3 h-3" /> {errors.longitude}
             </p>
           )}
         </div>
