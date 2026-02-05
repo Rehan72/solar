@@ -26,45 +26,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 
-// Mock data for Region Admins
-const mockAdmins = [
-  {
-    id: 'RA-001',
-    name: 'Robert Fox',
-    email: 'robert.fox@solar.com',
-    mobile: '+91 98765 43210',
-    region: 'North Region',
-    code: 'RE-NORTH-01',
-    location: 'New Delhi, India',
-    status: 'active',
-    utility: 'BSES Rajdhani',
-    joinedDate: '2023-01-15'
-  },
-  {
-    id: 'RA-002',
-    name: 'Arlene McCoy',
-    email: 'arlene.mccoy@solar.com',
-    mobile: '+91 98765 43211',
-    region: 'West Region',
-    code: 'RE-WEST-01',
-    location: 'Mumbai, Maharashtra',
-    status: 'active',
-    utility: 'Adani Electricity',
-    joinedDate: '2022-11-20'
-  },
-  {
-    id: 'RA-003',
-    name: 'Eleanor Pena',
-    email: 'eleanor.pena@solar.com',
-    mobile: '+91 98765 43212',
-    region: 'South Region',
-    code: 'RE-SOUTH-01',
-    location: 'Bangalore, Karnataka',
-    status: 'inactive',
-    utility: 'BESCOM',
-    joinedDate: '2023-03-10'
-  },
-];
+import { MOCK_REGION_ADMINS as mockAdmins } from '../../data/mockData';
 
 
 

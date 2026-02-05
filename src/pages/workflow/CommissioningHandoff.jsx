@@ -11,6 +11,7 @@ import {
   ClipboardList
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
+import DateTimePicker from '../../components/ui/DateTimePicker';
 
 // Mock Data for Commissioning Handoff
 const HANDOFF_DATA = {
@@ -152,12 +153,14 @@ function CommissioningHandoff() {
                          <div>
                              <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-white/60">Commissioning Date</label>
                              <div className="relative">
-                                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
-                                 <input 
-                                    type="date" 
-                                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-solar-yellow/50 focus:outline-none"
-                                    value={commissioningDate}
-                                    onChange={(e) => setCommissioningDate(e.target.value)}
+                                 <DateTimePicker 
+                                    mode="single"
+                                    placeholder="Select Date"
+                                    value={commissioningDate ? new Date(commissioningDate) : null}
+                                    onChange={(date) => {
+                                        const val = date ? date.toISOString().split('T')[0] : '';
+                                        setCommissioningDate(val);
+                                    }}
                                  />
                              </div>
                          </div>

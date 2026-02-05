@@ -25,57 +25,7 @@ import {
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 
-// Mock data for plants
-const mockPlants = [
-  {
-    id: 1,
-    name: 'Sector 45 Residence',
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3',
-    location: 'Gurugram, Haryana',
-    capacity: '10 kW',
-    status: 'active',
-    generation: '45.2 kWh',
-    efficiency: 94.5,
-    details: {
-      installationDate: '2023-01-15',
-      panelType: 'Monocrystalline PERC',
-      inverterModel: 'SolarEdge SE10000H',
-      lastMaintenance: '2023-12-10'
-    }
-  },
-  {
-    id: 2,
-    name: 'Industrial Hub Alpha',
-    image: 'https://images.unsplash.com/photo-1545208942-e94b89d02dc1?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3',
-    location: 'Noida, UP',
-    capacity: '50 kW',
-    status: 'active',
-    generation: '210.8 kWh',
-    efficiency: 91.2,
-    details: {
-      installationDate: '2022-08-22',
-      panelType: 'Polycrystalline',
-      inverterModel: 'Huawei SUN2000',
-      lastMaintenance: '2024-01-05'
-    }
-  },
-  {
-    id: 3,
-    name: 'Green Valley Farm',
-    image: 'https://images.unsplash.com/photo-1508514177221-188b1cf2efc6?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3',
-    location: 'Jaipur, Rajasthan',
-    capacity: '25 kW',
-    status: 'maintenance',
-    generation: '0 kWh',
-    efficiency: 0,
-    details: {
-      installationDate: '2021-11-30',
-      panelType: 'Monocrystalline',
-      inverterModel: 'SMA Sunny Boy',
-      lastMaintenance: '2024-02-01'
-    }
-  },
-];
+import { MOCK_PLANTS as mockPlants } from '../../data/mockData';
 
 export const columns = [
   {

@@ -15,6 +15,12 @@ import InstallationWorkflow from "../pages/workflow/InstallationWorkflow";
 import InstallationTeamList from "../pages/installationTeam/InstallationTeamList";
 import HandoffReview from "../pages/workflow/HandoffReview";
 import CommissioningHandoff from "../pages/workflow/CommissioningHandoff";
+import AuditTrail from "../pages/audit/AuditTrail";
+import CustomerOnboarding from "../pages/customer/CustomerOnboarding";
+import CustomerDashboard from "../pages/customer/CustomerDashboard";
+import SolarRequests from "../pages/admin/SolarRequests";
+import CustomerList from "../pages/customer/CustomerList";
+import CreateCustomer from "../pages/customer/CreateCustomer";
 
 
 export const routeParams = "management";
@@ -108,6 +114,36 @@ export default [
    {
      element: CommissioningHandoff,
      path: `commissioning/handoff`,
+     exact: true
+   },
+   {
+     element: AuditTrail,
+     path: `audit-trail`,
+     exact: true
+   },
+   {
+     element: CustomerOnboarding,
+     path: `customer/setup`,
+     exact: true
+   },
+   {
+     element: CustomerDashboard,
+     path: `customer/dashboard`,
+     exact: true
+   },
+   {
+     element: SolarRequests,
+     path: `admin/leads`,
+     exact: true
+   },
+   {
+     element: CustomerList,
+     path: `customer`,
+     exact: true
+   },
+   {
+     element: CreateCustomer,
+     path: `customer/create`,
      exact: true
    },
 

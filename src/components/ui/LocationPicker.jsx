@@ -447,7 +447,7 @@ const LocationPicker = ({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`glass rounded-3xl flex flex-col ${
+              className={`bg-deep-navy border border-white/10 shadow-2xl rounded-3xl flex flex-col ${
                 isFullscreen 
                   ? 'fixed inset-4' 
                   : 'w-full max-w-4xl h-[600px]'

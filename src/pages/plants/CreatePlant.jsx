@@ -39,6 +39,8 @@ import { useLocation } from 'react-router-dom';
 import { Button } from '../../components/ui/button';
 import LocationPicker from '../../components/ui/LocationPicker';
 import Select from '../../components/ui/Select';
+import DateTimePicker from '../../components/ui/DateTimePicker';
+import { INDIAN_STATES_AND_CITIES } from '../../data/mockData';
 
 // Option Constants
 const STATUS_OPTIONS = [
@@ -205,7 +207,14 @@ function CreatePlant() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // If state changes, reset city
+    if (name === 'state') {
+        setFormData(prev => ({ ...prev, state: value, city: '' }));
+    } else {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
     if (touched[name]) {
       setErrors(prev => ({ ...prev, [name]: validateField(name, value) }));
     }
@@ -344,12 +353,32 @@ function CreatePlant() {
                   <input type="text" name="country" value={formData.country} onChange={handleChange} className={getInputClassName('country', touched, errors)} />
                 </div>
               </FormField>
-              <FormField name="state" label="State" touched={touched} errors={errors}>
-                <div className="relative">
-                  <Map className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
-                  <input type="text" name="state" value={formData.state} onChange={handleChange} className={getInputClassName('state', touched, errors)} />
-                </div>
-              </FormField>
+              <div className="relative">
+                <Select
+                  name="state"
+                  label="State"
+                  value={formData.state}
+                  onChange={handleChange}
+                  options={Object.keys(INDIAN_STATES_AND_CITIES).map(s => ({ value: s, label: s }))}
+                  icon={Map}
+                  placeholder="Select State"
+                  error={touched.state && errors.state}
+                />
+              </div>
+
+               <div className="relative">
+                <Select
+                  name="city"
+                  label="City"
+                  value={formData.city}
+                  onChange={handleChange}
+                  options={formData.state ? INDIAN_STATES_AND_CITIES[formData.state]?.map(c => ({ value: c, label: c })) : []}
+                  icon={MapPin}
+                  placeholder={formData.state ? "Select City" : "Select State First"}
+                  disabled={!formData.state}
+                  error={touched.city && errors.city}
+                />
+              </div>
 
               <FormField name="utilityName" label="Utility / DISCOM" touched={touched} errors={errors}>
                 <div className="relative">
@@ -374,7 +403,15 @@ function CreatePlant() {
               <FormField name="connectionDate" label="Grid Connection Date" touched={touched} errors={errors}>
                 <div className="relative">
                   <Calendar className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30`} />
-                  <input type="date" name="connectionDate" value={formData.connectionDate} onChange={handleChange} className={getInputClassName('connectionDate', touched, errors)} />
+                  <DateTimePicker 
+                    mode="single"
+                    placeholder="Select Connection Date"
+                    value={formData.connectionDate ? new Date(formData.connectionDate) : null}
+                    onChange={(date) => {
+                      const val = date ? date.toISOString().split('T')[0] : '';
+                      handleChange({ target: { name: 'connectionDate', value: val } });
+                    }}
+                  />
                 </div>
               </FormField>
             </div>

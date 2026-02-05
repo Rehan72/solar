@@ -13,7 +13,6 @@ import {
   Calendar,
   MapPin,
   Tag,
-  Tag,
   Pen,
   CheckCircle2
 } from 'lucide-react';

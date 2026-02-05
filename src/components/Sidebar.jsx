@@ -13,7 +13,8 @@ import {
   BugPlay,
   Users,
   Map,
-  ClipboardCheck
+  ClipboardCheck,
+  History,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -28,6 +29,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'SURVEY TEAMS', icon: Map, path: '/survey-teams' },
     { name: 'INSTALLATION TEAMS', icon: Users, path: '/installation-teams' },
     { name: 'WORKFLOW EXECUTION', icon: ClipboardCheck, path: '/installation-workflow' },
+    { name: 'SOLAR REQUESTS', icon: Sun, path: '/admin/leads' },
+    { name: 'CUSTOMER', icon: Users, path: '/customer' },
     { name: 'ANALYTICS', icon: Activity, path: '/analytics' },
     { name: 'SYSTEM HEALTH', icon: Zap, path: '/health' },
     { name: 'DEVICES', icon: HardDrive, path: '/devices' },
