@@ -53,7 +53,12 @@ const MOCK_ADMINS = [
   }
 ];
 
-export const columns = [
+
+
+function PlantAdminList() {
+  const navigate = useNavigate();
+
+   const columns = [
   {
     id: "select",
     header: ({ table }) => (
@@ -165,7 +170,7 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigate(`//${admin.id}`)}
+              onClick={() => navigate(`/installation-teams/create`)}
             >
               Add Teams
             </DropdownMenuItem>
@@ -182,10 +187,6 @@ export const columns = [
     },
   },
 ]
-
-function PlantAdminList() {
-  const navigate = useNavigate();
-
   return (
     <div className="relative min-h-screen bg-deep-navy text-white overflow-hidden">
         {/* Cinematic Overlays */}

@@ -10,7 +10,10 @@ import {
   Sun,
   PieChart,
   HardDrive,
-  BugPlay
+  BugPlay,
+  Users,
+  Map,
+  ClipboardCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -22,6 +25,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'REGION ADMIN', icon:LayoutDashboard , path: '/region-admin' },
     { name: 'GRID PLANT', icon:BugPlay , path: '/grid-plant' },
     { name: 'PLANT ADMIN', icon:BugPlay , path: '/plant-admin' },
+    { name: 'SURVEY TEAMS', icon: Map, path: '/survey-teams' },
+    { name: 'INSTALLATION TEAMS', icon: Users, path: '/installation-teams' },
+    { name: 'WORKFLOW EXECUTION', icon: ClipboardCheck, path: '/installation-workflow' },
     { name: 'ANALYTICS', icon: Activity, path: '/analytics' },
     { name: 'SYSTEM HEALTH', icon: Zap, path: '/health' },
     { name: 'DEVICES', icon: HardDrive, path: '/devices' },
